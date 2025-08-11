@@ -1,0 +1,36 @@
+package countries;
+
+import java.util.Scanner;
+
+public class CountriesListApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        CountriesList cl = new CountriesList();
+
+        cl.displayWelcomeMessage();
+
+        boolean running = true;
+        while (running) {
+            cl.displayMenu();
+            int option = cl.getMenuOption(scanner);
+
+            switch (option) {
+                case 1:
+                    cl.listCountries();
+                    break;
+                case 2:
+                    System.out.print("Enter the name of the country: ");
+                    String name = scanner.nextLine();
+                    cl.checkForCountry(name);
+                    break;
+                case 3:
+                    System.out.println("Exiting program. Goodbye!");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+        scanner.close();
+    }
+}
