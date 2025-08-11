@@ -4,33 +4,40 @@ import java.util.Scanner;
 
 public class CountriesListApp {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        CountriesList cl = new CountriesList();
+        CountriesList app = new CountriesList();
+        Scanner sc = new Scanner(System.in);
 
-        cl.displayWelcomeMessage();
+        app.displayWelcomeMessage();
 
-        boolean running = true;
-        while (running) {
-            cl.displayMenu();
-            int option = cl.getMenuOption(scanner);
+        int choice = 0;
+        do {
+            app.displayMenu();
 
-            switch (option) {
+            // input validation for menu choice
+            while (!sc.hasNextInt()) {
+                System.out.print("Please enter a number (1-3): ");
+                sc.next(); // throw away bad input
+            }
+            choice = sc.nextInt();
+            sc.nextLine(); // consume newline
+
+            switch (choice) {
                 case 1:
-                    cl.listCountries();
+                    System.out.print("Enter country name: ");
+                    String name = sc.nextLine();
+                    app.addCountry(name);
                     break;
                 case 2:
-                    System.out.print("Enter the name of the country: ");
-                    String name = scanner.nextLine();
-                    cl.checkForCountry(name);
+                    app.listCountries();
                     break;
                 case 3:
-                    System.out.println("Exiting program. Goodbye!");
-                    running = false;
+                    System.out.println("Goodbye!");
                     break;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Invalid option. Try 1-3.");
             }
-        }
-        scanner.close();
+        } while (choice != 3);
+
+        sc.close();
     }
 }
